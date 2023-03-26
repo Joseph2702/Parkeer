@@ -74,16 +74,26 @@ if (isset($_GET['logout'])) {
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
-                    <td><?php echo $row['id_membership'] ?></td>
-                    <td><?php echo $row['no_ktm'] ?></td>
-                    <td><?php echo $row['jenis_kendaraan'] ?></td>
-                    <td><?php echo $row['masa_berlaku'] ?></td>
-                    <td><?php echo $row['no_stnk'] ?></td>
+                    <td>
+                        <?php echo $row['id_membership'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['no_ktm'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['jenis_kendaraan'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['masa_berlaku'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['no_stnk'] ?>
+                    </td>
                     <td>
                         <a href="#" role="button" onclick="return confirm('Data ini akan dihapus?')">Hapus</a>
                     </td>
                     <td>
-                        <a href="actionEdit.php?user_id=<?php echo $row['user_id']; ?>">Edit</a>
+                        <a href="actionEdit.php?no_ktm=<?php echo $row['no_ktm']; ?>">Edit</a>
                     </td>
                 </tr>
             <?php } ?>

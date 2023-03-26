@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2023 at 09:35 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Mar 25, 2023 at 03:47 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,16 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
   `nama_admin` varchar(100) NOT NULL,
-  `no_telepon` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `no_telepon` int(11) NOT NULL,
+  `pin` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `nama_admin`, `no_telepon`) VALUES
-(1, 'Abdul Muklis', 837347329),
-(2, 'Muhafidin', 83458544);
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `no_telepon`, `pin`) VALUES
+(1, 'Abdul Muklis', 837347329, 123),
+(2, 'Muhafidin', 83458544, 456);
 
 -- --------------------------------------------------------
 
@@ -50,7 +51,7 @@ INSERT INTO `admin` (`id_admin`, `nama_admin`, `no_telepon`) VALUES
 CREATE TABLE `mahasiswa` (
   `no_ktm` int(11) NOT NULL,
   `no_telepon` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mahasiswa`
@@ -58,7 +59,8 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`no_ktm`, `no_telepon`) VALUES
 (162021004, 31232),
-(162021005, 43221);
+(162021005, 43221),
+(162021011, 6287734);
 
 -- --------------------------------------------------------
 
@@ -72,7 +74,7 @@ CREATE TABLE `membership` (
   `jenis_kendaraan` varchar(100) NOT NULL,
   `masa_berlaku` date NOT NULL,
   `no_stnk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `membership`
@@ -80,7 +82,8 @@ CREATE TABLE `membership` (
 
 INSERT INTO `membership` (`id_membership`, `no_ktm`, `jenis_kendaraan`, `masa_berlaku`, `no_stnk`) VALUES
 (1, 162021004, 'Motor', '2023-03-31', 32131),
-(20, 162021005, 'Mobil', '2023-04-25', 12345);
+(20, 162021005, 'Mobil', '2023-04-25', 12345),
+(21, 162021011, 'Motor', '2023-04-25', 1234);
 
 --
 -- Indexes for dumped tables
@@ -119,7 +122,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `id_membership` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_membership` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

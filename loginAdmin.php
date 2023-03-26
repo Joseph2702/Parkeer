@@ -10,14 +10,13 @@ if (isset($_SESSION['logged_in'])) {
 if (isset($_POST['login_btn'])) {
     $pin = ($_POST['pin']);
 
-    $query = "SELECT * FROM admin
-        WHERE pin = ? LIMIT 1";
+    $query = "SELECT * FROM admin WHERE pin = ? LIMIT 1";
 
     $stmt_login = $conn->prepare($query);
-    $stmt_login->bind_param('s',$pin);
-    
+    $stmt_login->bind_param('s', $pin);
+
     if ($stmt_login->execute()) {
-        $stmt_login->bind_result($pin);
+        $stmt_login->bind_result($id, $nama, $telp, $pin);
         $stmt_login->store_result();
 
         if ($stmt_login->num_rows() == 1) {
