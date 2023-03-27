@@ -90,7 +90,7 @@ if (isset($_POST['login_btn'])) {
                 </tr>
                 <tr class="loginbawah">
                     <td>
-                        <p class="pilihan">Login Sebagai ? <a href="admin.php"> Admin</a> </p>
+                        <p class="pilihan">Login Sebagai ? <a href="loginAdmin.php"> Admin</a> </p>
                         <br>
                     </td>
                 </tr>
