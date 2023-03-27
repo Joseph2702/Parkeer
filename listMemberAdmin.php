@@ -11,7 +11,6 @@ if (isset($_POST['cari'])) {
 }
 $result = mysqli_query($conn, $q);
 
-
 if (!isset($_SESSION['logged_in'])) {
     header('location: admin.php');
     exit;
@@ -26,164 +25,144 @@ if (isset($_GET['logout'])) {
     }
 }
 ?>
-
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.rtl.css">
-    <title>LIST MEMBER MEMBERSHIP</title>
+    <title>Parkeer | Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <style>
+        #header {
+            background-color: #FD841F;
+        }
+
+        #footer {
+            background-color: #001253;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-    <!------ Header Section ---->
-    <header>
+    <!-- Edit Modals -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Member</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="inputNoKTM"
+                                    placeholder="NO KTM">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="inputNoKTM"
+                                    placeholder="PLAT NO KENDARAAN">
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option selected disabled>TIPE KENDARAAN</option>
+                                    <option value="Sepeda">Sepeda</option>
+                                    <option value="Motor">Motor</option>
+                                    <option value="Mobil">Mobil</option>
+                                    <option value="Bus">Bus</option>
+                                    <option value="Truk">Truk</option>
+                                </select>
 
-        <div class="container mt-4">
-            <!-- <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-
-            <script>
-                function myFunction(x) {
-                    x.myFunction.toggle("change");
-                }
-            </script> -->
-            <form action="" method="post">
-                <input type="text" name="keyword" placeholder="Masukkan Keyword">
-                <button type="submit" class="btn btn-primary" name="cari">Cari</button>
-            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <h5><b>DATA MEMBER</b></h5>
-
-
-    </header>
-    <br><br>
-    <table class="tabel_isi" border="2">
-        <tr>
-            <th>ID MEMBERSHIP</th>
-            <th>NO_KTM</th>
-            <th>TIPE KENDARAAN</th>
-            <th>MASA BERLAKU</th>
-            <th>NO PLAT</th>
-            <th>HAPUS</th>
-            <th>EDIT</th>
-        </tr>
-        <tbody>
-            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+    </div>
+    <!-- Navbar -->
+    <!-- Header -->
+    <section id="header" class="container-fluid" style="max-width: 1920px;">
+        <h1 class="py-5 mb-5">Data Member</h1>
+    </section>
+    <!-- Tabel -->
+    <section id="tabel" class="container-fluid" style="max-width: 1920px;">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        <?php echo $row['id_membership'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['no_ktm'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['jenis_kendaraan'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['masa_berlaku'] ?>
-                    </td>
-                    <td>
-                        <?php echo $row['no_stnk'] ?>
-                    </td>
-                    <td>
-                        <a href="#" role="button" onclick="return confirm('Data ini akan dihapus?')">Hapus</a>
-                    </td>
-                    <td>
-                        <a href="actionEdit.php?no_ktm=<?php echo $row['no_ktm']; ?>">Edit</a>
-                    </td>
+                    <th>#</th>
+                    <th>ID MEMBERSHIP</th>
+                    <th>NO_KTM</th>
+                    <th>TIPE KENDARAAN</th>
+                    <th>MASA BERLAKU</th>
+                    <th>NO PLAT</th>
+                    <th>AKSI</th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
 
+                <?php
+                $i = 0;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $i++; ?>
+                    <tr>
+                        <td>
+                            <?= $i; ?>
+                        </td>
+                        <td>
+                            <?= $row['id_membership']; ?>
+                        </td>
+                        <td>
+                            <?= $row['no_ktm']; ?>
+                        </td>
+                        <td>
+                            <?= $row['jenis_kendaraan']; ?>
+                        </td>
+                        <td>
+                            <?= $row['masa_berlaku']; ?>
+                        </td>
+                        <td>
+                            <?= $row['no_stnk']; ?>
+                        </td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Edit
+                                </button>
+                                <!-- <a class="btn btn-primary" href="actionEdit.php?no_ktm=<?= $row['no_ktm']; ?>">Edit</a> -->
+                                <a class="btn btn-danger" href="#" role="button"
+                                    onclick="return confirm('Data ini akan dihapus?')">Hapus</a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </section>
+    <!-- Footer -->
+    <section id="footer" class="container-fluid d-flex align-items-center flex-column fixed-bottom py-2">
+        <p class="pt-3">© 2000 - Company, Inc. All rights reserved. Address Address</p>
+        <div class="d-flex grid gap-0 column-gap-3 pb-3">
+            <a href="#" class="link-light">Item 1</a>
+            <a href="#" class="link-light">Item 2</a>
+            <a href="#" class="link-light">Item 3</a>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
 
-    <footer class="footer">
-        <p>Ini adalah footer</p>
-    </footer>
+    </script>
 </body>
 
 </html>
-<style>
-    header {
-        position: absolute;
-        background-color: #FD841F;
-        width: 100%;
-        height: 60px;
-        top: 0;
-        left: 0;
-
-    }
-
-    .tabel_isi {
-        margin-top: 5%;
-        width: 100%;
-        background-color: grey;
-        background-color: rgba(128, 128, 128, 0.4);
-    }
-
-    .container {
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .bar1 {}
-
-    .bar2 {}
-
-    .bar3 {
-        width: 35px;
-        height: 5px;
-        background-color: black;
-        border-radius: 15px;
-        margin: 6;
-        transition: 3s;
-    }
-
-    .change .bar1 {
-        transform: translate(0, 11px) rotate(-45deg);
-    }
-
-    .change .bar2 {
-        opacity: 0;
-    }
-
-    .change .bar3 {
-        transform: translate(0, -11px) rotate(45deg);
-    }
-
-    /* .inputan {
-        margin-top: 3%;
-        width: 70%;
-        height: 25px;
-    }
-
-    .site-btn {
-        width: 71%;
-        height: 35px;
-    }
-
-    .pilihan {
-        margin-left: 15%;
-        margin-top: 0;
-        margin-bottom: 0;
-    } */
-    .text-indent {
-        font-size: 24px;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background-color: #001253;
-        text-align: center;
-        color: white;
-
-    }
-</style>
