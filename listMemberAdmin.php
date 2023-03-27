@@ -49,26 +49,27 @@ if (isset($_GET['logout'])) {
 
 <body>
     <!-- Edit Modals -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <form>
+                <form id="formEdit" action="server/actionEdit.php" method="post">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Member</h1>
+                        <h1 class="modal-title fs-5" id="modalEditLabel">Edit Data Member</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="mb-3">
-                                <input type="text" class="form-control form-control-lg" id="inputNoKTM"
-                                    placeholder="NO KTM">
+                                <input name="inputNoKTM" type="text" class="form-control form-control-lg"
+                                    id="inputNoKTM" placeholder="NO KTM">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control form-control-lg" id="inputNoKTM"
-                                    placeholder="PLAT NO KENDARAAN">
+                                <input name="inputNoSTNK" type="text" class="form-control form-control-lg"
+                                    id="inputNoKTM" placeholder="PLAT NO STNK">
                             </div>
                             <div class="mb-3">
-                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                <select name="inputJenisKendaraan" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example">
                                     <option selected disabled>TIPE KENDARAAN</option>
                                     <option value="Sepeda">Sepeda</option>
                                     <option value="Motor">Motor</option>
@@ -82,7 +83,7 @@ if (isset($_GET['logout'])) {
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-primary" id="simpanEdit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -135,11 +136,12 @@ if (isset($_GET['logout'])) {
                         <td>
                             <div class="d-grid gap-2 d-md-block">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                                    data-bs-target="#modalEdit">
                                     Edit
                                 </button>
                                 <!-- <a class="btn btn-primary" href="actionEdit.php?no_ktm=<?= $row['no_ktm']; ?>">Edit</a> -->
-                                <a class="btn btn-danger" href="#" role="button"
+                                <a class="btn btn-danger"
+                                    href="server/actionDelete.php?id_membership=<?= $row['id_membership']; ?>" role="button"
                                     onclick="return confirm('Data ini akan dihapus?')">Hapus</a>
                             </div>
                         </td>
@@ -161,7 +163,12 @@ if (isset($_GET['logout'])) {
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
     <script type="text/javascript">
-
+        // gather edit data
+        // simpan button
+        var form = document.getElementById("formEdit");
+        document.getElementById("simpanEdit").addEventListener("click", function () {
+            form.submit();
+        });
     </script>
 </body>
 
